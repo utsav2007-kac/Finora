@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finora – Personal Finance Manager</title>
+  <meta name="description" content="Finora – Track your spending, budgets, goals, and investments in one place." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ====== SIDEBAR ====== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">F</div>
+        <span class="logo-text">Finora</span>
+      </div>
+      <button id="sidebar-close" class="sidebar-close-btn" title="Close sidebar">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-title">Overview</div>
+        <a href="#/dashboard"     class="nav-item" data-page="dashboard">
+          <i data-lucide="layout-dashboard"></i><span>Dashboard</span>
+        </a>
+        <a href="#/transactions"  class="nav-item" data-page="transactions">
+          <i data-lucide="arrow-left-right"></i><span>Transactions</span>
+        </a>
+        <a href="#/accounts"      class="nav-item" data-page="accounts">
+          <i data-lucide="credit-card"></i><span>Accounts</span>
+        </a>
+        <a href="#/net-worth"     class="nav-item" data-page="net-worth">
+          <i data-lucide="trending-up"></i><span>Net Worth</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Planning</div>
+        <a href="#/budgets"       class="nav-item" data-page="budgets">
+          <i data-lucide="pie-chart"></i><span>Budgets</span>
+        </a>
+        <a href="#/goals"         class="nav-item" data-page="goals">
+          <i data-lucide="target"></i><span>Goals</span>
+        </a>
+        <a href="#/recurring"     class="nav-item" data-page="recurring">
+          <i data-lucide="repeat"></i><span>Recurring</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Analytics</div>
+        <a href="#/cash-flow"     class="nav-item" data-page="cash-flow">
+          <i data-lucide="activity"></i><span>Cash Flow</span>
+        </a>
+        <a href="#/reports"       class="nav-item" data-page="reports">
+          <i data-lucide="bar-chart-2"></i><span>Reports</span>
+        </a>
+      </div>
+
+      <div class="nav-group">
+        <div class="nav-group-title">Other</div>
+        <a href="#/categories"    class="nav-item" data-page="categories">
+          <i data-lucide="tag"></i><span>Categories</span>
+        </a>
+        <a href="#/settings"      class="nav-item" data-page="settings">
+          <i data-lucide="settings"></i><span>Settings</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="#" class="nav-item help-link" id="help-link">
+        <i data-lucide="help-circle"></i><span>Help</span>
+      </a>
+      <div class="sidebar-user">
+        <div class="avatar" id="sidebar-avatar">AR</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebar-name">Arjun Raj</div>
+          <div class="sidebar-user-email" id="sidebar-email">arjun@example.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- ====== MAIN WRAPPER ====== -->
+  <div id="main-wrapper" class="main-wrapper">
+
+    <!-- Top Bar -->
+    <header class="topbar" id="topbar">
+      <div class="topbar-left">
+        <button id="sidebar-toggle" class="icon-btn" title="Toggle sidebar">
+          <i data-lucide="menu"></i>
+        </button>
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <i data-lucide="search" class="search-icon"></i>
+          <input type="text" id="global-search" placeholder="Search transactions…" autocomplete="off" />
+        </div>
+        <button class="icon-btn notif-btn" id="notif-btn" title="Notifications">
+          <i data-lucide="bell"></i>
+          <span class="notif-badge" id="notif-badge">3</span>
+        </button>
+        <button class="icon-btn" id="theme-toggle" title="Toggle dark mode">
+          <i data-lucide="moon"></i>
+        </button>
+        <div class="profile-wrap">
+          <button class="profile-btn" id="profile-btn">
+            <div class="avatar sm" id="topbar-avatar">AR</div>
+          </button>
+          <div class="profile-dropdown" id="profile-dropdown">
+            <div class="profile-dd-head">
+              <strong id="dd-name">Arjun Raj</strong>
+              <span id="dd-email">arjun@example.com</span>
+            </div>
+            <a href="#/settings" class="dd-item"><i data-lucide="user"></i> Profile Settings</a>
+            <hr class="dd-divider" />
+            <a href="#" class="dd-item dd-danger" id="sign-out-btn"><i data-lucide="log-out"></i> Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main id="page-content" class="page-content"></main>
+
+  </div><!-- /main-wrapper -->
+</div><!-- /app -->
+
+<!-- ====== MODAL ====== -->
+<div id="modal-wrap" class="modal-wrap hidden">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-box" id="modal-box">
+    <div class="modal-hdr">
+      <h3 id="modal-title">Modal</h3>
+      <button class="modal-x" id="modal-x">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ====== CONFIRM DIALOG ====== -->
+<div id="confirm-wrap" class="modal-wrap hidden">
+  <div class="modal-backdrop"></div>
+  <div class="modal-box confirm-box">
+    <div class="modal-hdr">
+      <h3 id="confirm-title">Confirm</h3>
+    </div>
+    <div class="modal-body">
+      <p id="confirm-msg">Are you sure?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="confirm-cancel">Cancel</button>
+      <button class="btn btn-danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TOAST CONTAINER ====== -->
+<div id="toast-wrap" class="toast-wrap"></div>
+
+<!-- JS files -->
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<!-- Global namespace for page modules -->
+<script>const Pages = {};</script>
+<script src="js/pages/dashboard.js"></script>
+<script src="js/pages/transactions.js"></script>
+<script src="js/pages/accounts.js"></script>
+<script src="js/pages/budgets.js"></script>
+<script src="js/pages/goals.js"></script>
+<script src="js/pages/networth.js"></script>
+<script src="js/pages/recurring.js"></script>
+<script src="js/pages/cashflow.js"></script>
+<script src="js/pages/reports.js"></script>
+<script src="js/pages/categories.js"></script>
+<script src="js/pages/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
